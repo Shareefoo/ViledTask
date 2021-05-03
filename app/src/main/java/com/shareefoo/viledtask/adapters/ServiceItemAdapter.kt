@@ -10,14 +10,14 @@ import com.bumptech.glide.Glide
 import com.shareefoo.viledtask.R
 import com.shareefoo.viledtask.databinding.ItemCategoryBinding
 import com.shareefoo.viledtask.databinding.ItemServiceBinding
-import com.shareefoo.viledtask.models.Category
+import com.shareefoo.viledtask.models.Service
 
-class CategoryItemAdapter(private var categories: List<Category>) :
-    RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>() {
+class ServiceItemAdapter(private var services: List<Service>) :
+    RecyclerView.Adapter<ServiceItemAdapter.ViewHolder>() {
 
-    // inflate the view of ItemCategoryBinding
+    // inflate the view of ItemServiceBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemCategoryBinding.inflate(
+        val binding = ItemServiceBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return ViewHolder(binding)
@@ -26,19 +26,23 @@ class CategoryItemAdapter(private var categories: List<Category>) :
     // bind the items with each item of the list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            with(categories[position]) {
+            with(services[position]) {
                 //
-                binding.tvCategoryTitle.text = this.title
+                binding.tvServiceTitle.text = this.title
                 //
                 Glide.with(itemView)
                     .load(this.iconUrl)
-                    .into(binding.ivCategoryThumbnail)
+                    .into(binding.ivServiceThumbnail)
+
+                itemView.setOnClickListener {
+                    //
+                }
             }
         }
     }
 
     // return the size of the list
-    override fun getItemCount(): Int = categories.size
+    override fun getItemCount(): Int = services.size
 
-    inner class ViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemServiceBinding) : RecyclerView.ViewHolder(binding.root)
 }

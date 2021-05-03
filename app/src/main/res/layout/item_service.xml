@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_category_thumbnail"
+            android:id="@+id/iv_service_thumbnail"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_category_title"
+            android:id="@+id/tv_service_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -33,9 +33,9 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/iv_category_thumbnail"
+            app:layout_constraintLeft_toRightOf="@id/iv_service_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Category Title" />
+            tools:text="Service Title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
