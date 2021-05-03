@@ -3,6 +3,7 @@ package com.shareefoo.viledtask.api
 import com.shareefoo.viledtask.models.GeneralResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Header
 
 interface GeneralApiService {
 

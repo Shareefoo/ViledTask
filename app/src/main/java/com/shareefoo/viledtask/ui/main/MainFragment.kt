@@ -1,18 +1,19 @@
 package com.shareefoo.viledtask.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.shareefoo.viledtask.R
 import com.shareefoo.viledtask.adapters.CategoryItemAdapter
 import com.shareefoo.viledtask.databinding.MainFragmentBinding
 import com.shareefoo.viledtask.models.Category
+import com.shareefoo.viledtask.repositories.GeneralRepository
+
 
 class MainFragment : Fragment() {
 
@@ -48,7 +49,12 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+//        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        val repository = GeneralRepository()
+
+        viewModel = ViewModelProvider(this, MainViewModelFactory(repository)).get(MainViewModel::class.java)
 
         viewModel.getGeneralResponse().observe(this, {
             mCategories = it.categories
