@@ -6,27 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F8FD"
-    tools:context=".ui.main.MainFragment">
+    tools:context=".ui.details.DetailsFragment">
 
     <TextView
         android:textColor="#000000"
-        android:id="@+id/tv_services"
+        android:id="@+id/tv_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Our Services"
+        android:text="Categories"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_services"
+        android:id="@+id/rv_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/tv_services"
-        tools:listitem="@layout/item_service" />
+        app:layout_constraintTop_toBottomOf="@id/tv_categories"
+        tools:listitem="@layout/item_category" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

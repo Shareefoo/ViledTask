@@ -1,17 +1,16 @@
 package com.shareefoo.viledtask.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.shareefoo.viledtask.adapters.ServiceItemAdapter
+import com.shareefoo.viledtask.data.model.Category
 import com.shareefoo.viledtask.databinding.MainFragmentBinding
-import com.shareefoo.viledtask.models.Service
+import com.shareefoo.viledtask.data.model.Service
 import com.shareefoo.viledtask.repositories.GeneralRepository
 
 
@@ -24,6 +23,7 @@ class MainFragment : Fragment() {
 
     private lateinit var mServiceAdapter: ServiceItemAdapter
     private lateinit var mServicesList: List<Service>
+    private lateinit var mCategoriesList: List<Category>
 
     companion object {
         fun newInstance() = MainFragment()
@@ -32,15 +32,10 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        binding.rvServices.layoutManager = LinearLayoutManager(context)
-
-        return view
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,12 +43,19 @@ class MainFragment : Fragment() {
 
         val repository = GeneralRepository()
 
-        viewModel =
-            ViewModelProvider(this, MainViewModelFactory(repository)).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(
+            requireActivity(), MainViewModelFactory(repository)
+        ).get(MainViewModel::class.java)
 
-        viewModel.getGeneralResponse().observe(this, {
+        viewModel.getGeneralResponse().observe(viewLifecycleOwner, {
+
+            viewModel.setServices(it.services)
+            viewModel.setCategories(it.categories)
+
             mServicesList = it.services
-            mServiceAdapter = ServiceItemAdapter(mServicesList)
+            mCategoriesList = it.categories
+
+            mServiceAdapter = ServiceItemAdapter(mServicesList, mCategoriesList)
             binding.rvServices.adapter = mServiceAdapter
         })
     }

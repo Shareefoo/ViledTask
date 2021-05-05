@@ -1,4 +1,4 @@
-package com.shareefoo.viledtask.models
+package com.shareefoo.viledtask.data.model
 
 import com.google.gson.annotations.SerializedName
 

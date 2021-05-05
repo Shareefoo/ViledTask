@@ -1,16 +1,11 @@
 package com.shareefoo.viledtask.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.shareefoo.viledtask.R
 import com.shareefoo.viledtask.databinding.ItemCategoryBinding
-import com.shareefoo.viledtask.databinding.ItemServiceBinding
-import com.shareefoo.viledtask.models.Category
+import com.shareefoo.viledtask.data.model.Category
 
 class CategoryItemAdapter(private var categories: List<Category>) :
     RecyclerView.Adapter<CategoryItemAdapter.ViewHolder>() {
