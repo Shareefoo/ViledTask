@@ -18,6 +18,7 @@ import com.shareefoo.viledtask.repositories.GeneralRepository
 import com.shareefoo.viledtask.ui.main.MainFragment
 import com.shareefoo.viledtask.ui.main.MainViewModel
 import com.shareefoo.viledtask.ui.main.MainViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment() {
 
@@ -33,7 +34,10 @@ class DetailsFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    // lazy inject MainViewModel
+    val viewModel: MainViewModel by viewModel()
+
+//    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,11 +49,11 @@ class DetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val repository = GeneralRepository()
-
-        viewModel = ViewModelProvider(
-            requireActivity(), MainViewModelFactory(repository)
-        ).get(MainViewModel::class.java)
+//        val repository = GeneralRepository()
+//
+//        viewModel = ViewModelProvider(
+//            requireActivity(), MainViewModelFactory(repository)
+//        ).get(MainViewModel::class.java)
 
         viewModel.servicesList.observe(viewLifecycleOwner, Observer { servicesList ->
             mServicesList = servicesList

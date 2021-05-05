@@ -9,29 +9,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class GeneralRepository() {
+interface GeneralRepository {
 
-    // Service creation
-    private val mGeneralApiService = ServiceBuilder.buildService(GeneralApiService::class.java)
-
-    fun getGeneralResponse(): MutableLiveData<GeneralResponse> {
-
-        val data = MutableLiveData<GeneralResponse>()
-        mGeneralApiService.getResponse()
-            .enqueue(object : Callback<GeneralResponse> {
-                override fun onResponse(
-                    call: Call<GeneralResponse>, response: Response<GeneralResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        data.postValue(response.body()!!)
-                    }
-                }
-
-                override fun onFailure(call: Call<GeneralResponse>, t: Throwable) {
-                    t.printStackTrace()
-                }
-            })
-        return data
-    }
+    fun getGeneralResponse(): MutableLiveData<GeneralResponse>
 
 }

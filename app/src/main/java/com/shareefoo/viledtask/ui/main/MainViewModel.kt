@@ -8,7 +8,7 @@ import com.shareefoo.viledtask.data.model.GeneralResponse
 import com.shareefoo.viledtask.data.model.Service
 import com.shareefoo.viledtask.repositories.GeneralRepository
 
-class MainViewModel(private var generalRepository: GeneralRepository) : ViewModel() {
+class MainViewModel(private val generalRepository: GeneralRepository) : ViewModel() {
 
     var servicesList = MutableLiveData<List<Service>>()
     var categoriesList = MutableLiveData<List<Category>>()
