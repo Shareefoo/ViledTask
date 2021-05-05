@@ -1,6 +1,5 @@
-package com.shareefoo.viledtask.adapters
+package com.shareefoo.viledtask.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -9,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.shareefoo.viledtask.data.model.Category
 import com.shareefoo.viledtask.databinding.ItemServiceBinding
 import com.shareefoo.viledtask.data.model.Service
-import com.shareefoo.viledtask.ui.main.MainFragmentDirections
+import com.shareefoo.viledtask.ui.master.MasterFragmentDirections
 
 class ServiceItemAdapter(
     private var services: List<Service>,
@@ -40,7 +39,7 @@ class ServiceItemAdapter(
                     // navigate to details fragment and pass selected service id
                     val humanizedId = this.humanizedId
                     val action =
-                        MainFragmentDirections.actionMainFragmentToDetailsFragment(humanizedId)
+                        MasterFragmentDirections.actionMainFragmentToDetailsFragment(humanizedId)
                     it.findNavController().navigate(action)
                 }
             }

@@ -1,4 +1,4 @@
-package com.shareefoo.viledtask.repositories
+package com.shareefoo.viledtask.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.shareefoo.viledtask.api.GeneralApiService
@@ -13,8 +13,8 @@ class GeneralRepositoryImpl() : GeneralRepository {
     // Service creation
     private val mGeneralApiService = ServiceBuilder.buildService(GeneralApiService::class.java)
 
+    //
     override fun getGeneralResponse(): MutableLiveData<GeneralResponse> {
-
         val data = MutableLiveData<GeneralResponse>()
         mGeneralApiService.getResponse()
             .enqueue(object : Callback<GeneralResponse> {

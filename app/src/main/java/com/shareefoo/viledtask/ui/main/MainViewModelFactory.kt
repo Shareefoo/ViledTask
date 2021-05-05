@@ -2,7 +2,7 @@ package com.shareefoo.viledtask.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.shareefoo.viledtask.repositories.GeneralRepository
+import com.shareefoo.viledtask.repository.GeneralRepository
 
 class MainViewModelFactory constructor(private val generalRepository: GeneralRepository) :
     ViewModelProvider.Factory {

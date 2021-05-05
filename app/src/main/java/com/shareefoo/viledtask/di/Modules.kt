@@ -1,9 +1,8 @@
 package com.shareefoo.viledtask.di
 
-import com.shareefoo.viledtask.repositories.GeneralRepository
-import com.shareefoo.viledtask.repositories.GeneralRepositoryImpl
+import com.shareefoo.viledtask.repository.GeneralRepository
+import com.shareefoo.viledtask.repository.GeneralRepositoryImpl
 import com.shareefoo.viledtask.ui.main.MainViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 

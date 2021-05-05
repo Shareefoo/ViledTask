@@ -1,4 +1,4 @@
-package com.shareefoo.viledtask.adapters
+package com.shareefoo.viledtask.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

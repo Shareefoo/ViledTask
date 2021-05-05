@@ -7,23 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.shareefoo.viledtask.adapters.CategoryItemAdapter
-import com.shareefoo.viledtask.adapters.ServiceItemAdapter
+import com.shareefoo.viledtask.adapter.CategoryItemAdapter
 import com.shareefoo.viledtask.data.model.Category
 import com.shareefoo.viledtask.data.model.Service
 import com.shareefoo.viledtask.databinding.DetailsFragmentBinding
-import com.shareefoo.viledtask.repositories.GeneralRepository
-import com.shareefoo.viledtask.ui.main.MainFragment
+import com.shareefoo.viledtask.ui.master.MasterFragment
 import com.shareefoo.viledtask.ui.main.MainViewModel
-import com.shareefoo.viledtask.ui.main.MainViewModelFactory
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment() {
 
     private var _binding: DetailsFragmentBinding? = null
 
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var mCategoryAdapter: CategoryItemAdapter
@@ -31,12 +28,11 @@ class DetailsFragment : Fragment() {
     private lateinit var mCategoriesList: List<Category>
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = MasterFragment()
     }
 
-    // lazy inject MainViewModel
+    // Lazy inject MainViewModel
     val viewModel: MainViewModel by viewModel()
-
 //    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -46,8 +42,8 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
 //        val repository = GeneralRepository()
 //
@@ -55,11 +51,15 @@ class DetailsFragment : Fragment() {
 //            requireActivity(), MainViewModelFactory(repository)
 //        ).get(MainViewModel::class.java)
 
-        viewModel.servicesList.observe(viewLifecycleOwner, Observer { servicesList ->
-            mServicesList = servicesList
+        mServicesList = viewModel.servicesList.value!!
 
-            viewModel.categoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
-                mCategoriesList = categoriesList
+        mCategoriesList = viewModel.categoriesList.value!!
+
+//        viewModel.servicesList.observe(viewLifecycleOwner, Observer { servicesList ->
+//            mServicesList = servicesList
+//
+//            viewModel.categoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
+//                mCategoriesList = categoriesList
 
                 val args: DetailsFragmentArgs by navArgs()
                 val serviceId = args.humanizedId
@@ -82,8 +82,8 @@ class DetailsFragment : Fragment() {
                         binding.rvCategories.adapter = mCategoryAdapter
                     }
                 }
-            })
-        })
+//            })
+//        })
     }
 
     // Clean up any references to the binding class instance

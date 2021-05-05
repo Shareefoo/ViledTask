@@ -1,23 +1,21 @@
-package com.shareefoo.viledtask.ui.main
+package com.shareefoo.viledtask.ui.master
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.shareefoo.viledtask.adapters.ServiceItemAdapter
+import com.shareefoo.viledtask.adapter.ServiceItemAdapter
 import com.shareefoo.viledtask.data.model.Category
-import com.shareefoo.viledtask.databinding.MainFragmentBinding
+import com.shareefoo.viledtask.databinding.MasterFragmentBinding
 import com.shareefoo.viledtask.data.model.Service
-import com.shareefoo.viledtask.repositories.GeneralRepository
+import com.shareefoo.viledtask.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainFragment : Fragment() {
+class MasterFragment : Fragment() {
 
-    private var _binding: MainFragmentBinding? = null
+    private var _binding: MasterFragmentBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -27,23 +25,22 @@ class MainFragment : Fragment() {
     private lateinit var mCategoriesList: List<Category>
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = MasterFragment()
     }
 
-    // lazy inject MainViewModel
+    // Lazy inject MainViewModel
     val viewModel: MainViewModel by viewModel()
-
 //    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        _binding = MasterFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
 //        val repository = GeneralRepository()
 
@@ -52,6 +49,7 @@ class MainFragment : Fragment() {
 //        ).get(MainViewModel::class.java)
 
         viewModel.getGeneralResponse().observe(viewLifecycleOwner, {
+            viewModel.spinner.postValue(false)
 
             viewModel.setServices(it.services)
             viewModel.setCategories(it.categories)
@@ -62,6 +60,14 @@ class MainFragment : Fragment() {
             mServiceAdapter = ServiceItemAdapter(mServicesList, mCategoriesList)
             binding.rvServices.adapter = mServiceAdapter
         })
+
+        // show the spinner when [MainViewModel.spinner] is true
+        viewModel.spinner.observe(viewLifecycleOwner) { value ->
+            value.let { show ->
+                binding.spinner.visibility = if (show) View.VISIBLE else View.GONE
+            }
+        }
+
     }
 
     // Clean up any references to the binding class instance
