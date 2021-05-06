@@ -1,6 +1,7 @@
 # ViledTask
 
-A Simple Sample app which displays a list of items from and endpoint:
+A Simple Sample app which displays a list of items from an endpoint:
+
 
 Patterns and Concepts that were applied:
 - MVVM Architecture
@@ -9,10 +10,12 @@ Patterns and Concepts that were applied:
 - Koin for DI (Dependency Injection)
 - Kotlin Coroutines
 
+
 Third-Party Libraries Used:
 - Retrofit2
 - Glide
 - Koin
+
 
 Things that weren't covered:
 - Caching network response
