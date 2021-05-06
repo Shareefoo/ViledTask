@@ -9,8 +9,10 @@ Patterns and Concepts that were applied:
 - Koin for DI (Dependency Injection)
 - Kotlin Coroutines
 
-Libraries Used:
-- Retrofit
+Third-Party Libraries Used:
+- Retrofit2
+- Glide
+- Koin
 
 Things that weren't covered:
 - Caching network response
