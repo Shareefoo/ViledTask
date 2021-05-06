@@ -11,6 +11,6 @@ val appModule = module {
     // single instance of GeneralRepository
     single<GeneralRepository> { GeneralRepositoryImpl() }
 
-    // single instance of MainViewModel
+    // single instance of MainViewModel to be shared between the fragments
     single { MainViewModel(get()) }
 }

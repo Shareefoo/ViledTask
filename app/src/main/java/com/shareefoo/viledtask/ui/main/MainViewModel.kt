@@ -1,8 +1,6 @@
 package com.shareefoo.viledtask.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.shareefoo.viledtask.data.model.Category
 import com.shareefoo.viledtask.data.model.GeneralResponse
 import com.shareefoo.viledtask.data.model.Service
@@ -10,6 +8,7 @@ import com.shareefoo.viledtask.repository.GeneralRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import okhttp3.internal.wait
 
 /**
@@ -36,32 +35,6 @@ class MainViewModel(private val generalRepository: GeneralRepository) : ViewMode
         categoriesList.value = categories
     }
 
-//    suspend fun getServices(): List<Service> {
-//        coroutineScope {
-//            val deferred = async (Dispatchers.IO){
-//                servicesList.value!!
-//            }
-//            deferred.wait()
-//        }
-//    }
-//
-//
-//    fun getServices(): LiveData<List<Service>> {
-//        return services
-//    }
-
-
-    private val services: MutableLiveData<List<Service>> by lazy {
-        MutableLiveData<List<Service>>().also {
-            loadServices()
-        }
-    }
-
-    private fun loadServices() {
-        // Do an asynchronous operation to fetch services.
-        val generalResponse = generalRepository.getGeneralResponse()
-    }
-
     fun getServiceCategories(serviceId: String): List<Category> {
         val newList: ArrayList<Category> = ArrayList()
 
@@ -77,9 +50,21 @@ class MainViewModel(private val generalRepository: GeneralRepository) : ViewMode
         return newList
     }
 
-    fun getGeneralResponse(): MutableLiveData<GeneralResponse> {
+//    // Do an asynchronous operation to fetch services.
+//    // Todo: we can add try catch here to handle exceptions and errors
+//    fun getGeneralResponse(): MutableLiveData<GeneralResponse> {
+//        var response = MutableLiveData<GeneralResponse>()
+//        viewModelScope.launch {
+//            spinner.postValue(true)
+//            response = generalRepository.getGeneralResponse()
+//        }
+//        return response
+//    }
+
+    fun getGeneralResponse() = liveData(Dispatchers.IO){
         spinner.postValue(true)
-        return generalRepository.getGeneralResponse()
+        val response = generalRepository.getGeneralResponse()
+        emit(response)
     }
 
 }

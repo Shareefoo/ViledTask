@@ -10,5 +10,5 @@ interface GeneralApiService {
      * @GET declares an HTTP GET request
      */
     @GET("/finance/service-catalog/v1/categories")
-    fun getResponse(): Call<GeneralResponse>
+    suspend fun getResponse(): GeneralResponse
 }

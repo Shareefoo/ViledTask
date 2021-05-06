@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.shareefoo.viledtask.R
 import com.shareefoo.viledtask.adapter.CategoryItemAdapter
 import com.shareefoo.viledtask.data.model.Category
 import com.shareefoo.viledtask.data.model.Service
@@ -61,27 +62,29 @@ class DetailsFragment : Fragment() {
 //            viewModel.categoriesList.observe(viewLifecycleOwner, Observer { categoriesList ->
 //                mCategoriesList = categoriesList
 
-                val args: DetailsFragmentArgs by navArgs()
-                val serviceId = args.humanizedId
+        val args: DetailsFragmentArgs by navArgs()
+        val serviceId = args.humanizedId
 
-                // TODO: delegate to ViewModel (Business Logic)
-                // get current service from passed id
-                for (service in mServicesList) {
-                    if (service.humanizedId == serviceId) {
-                        // extract current service categories
-                        val newList = ArrayList<Category>()
-                        val categoriesIdList: List<String> = service.categoryIds
-                        for (categoryId in categoriesIdList) {
-                            for (category in mCategoriesList) {
-                                if (categoryId == category.id) {
-                                    newList.add(category)
-                                }
-                            }
+        // TODO: delegate to ViewModel (Business Logic)
+        // get current service from passed id
+        for (service in mServicesList) {
+            if (service.humanizedId == serviceId) {
+                // extract current service categories
+                binding.tvCategories.text =
+                    service.title + " " + resources.getString(R.string.categories)
+                val newList = ArrayList<Category>()
+                val categoriesIdList: List<String> = service.categoryIds
+                for (categoryId in categoriesIdList) {
+                    for (category in mCategoriesList) {
+                        if (categoryId == category.id) {
+                            newList.add(category)
                         }
-                        mCategoryAdapter = CategoryItemAdapter(newList.toList())
-                        binding.rvCategories.adapter = mCategoryAdapter
                     }
                 }
+                mCategoryAdapter = CategoryItemAdapter(newList.toList())
+                binding.rvCategories.adapter = mCategoryAdapter
+            }
+        }
 //            })
 //        })
     }
